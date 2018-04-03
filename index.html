@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>MD4 Guntis Ozols</title>
+  </head>
+  <body>
+    <script src = "three.min.js"></script>
+    <script src = "OrbitControls.js"></script>
+    <script src = "GLTFLoader.js"></script>
+    <script>
+      var objects = [];
+      var scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xf0f0f0);
+      var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      document.body.appendChild( renderer.domElement );
+      window.addEventListener('resize', function(){
+      	var width = window.innerWidth;
+      	var height = window.innerHeight;
+      	renderer.setSize(width, height);
+      	camera.aspect = width/height;
+      	camera.updateProjectionMatrix();
+      });
+      var light = new THREE.HemisphereLight( 0xFFFFFF, 0x080820, 2 );
+	  	scene.add( light );
+      var loader = new THREE.GLTFLoader();
+      loader.load(
+      	'Room.gltf',
+      	function ( room ) {
+      		scene.add( room.scene );
+      		room.scene.scale.set( 0.8, 0.8, 0.8 );
+		room.scene.position.set( -0, 0.55, 0 );
+		room.scene.rotation.y = Math.PI / 1.5;
+      		objects.push(room.scene);
+      	},
+      );
+      var loader = new THREE.GLTFLoader();
+      loader.load(
+      	'guak.gltf',
+      	function ( guak ) {
+      		scene.add( guak.scene );
+      		guak.scene.scale.set( 0.8, 0.8, 0.8 );
+		guak.scene.position.set( -0.1, 0.6, 0.4 );
+      		objects.push(guak.scene);
+      	},
+      );
+      var loader = new THREE.GLTFLoader();
+      loader.load(
+        'melon.gltf',
+        function ( mango ) {
+          scene.add( mango.scene );
+          mango.scene.scale.set( 0.15, 0.15, 0.15 );
+		mango.scene.position.set( 0.5, 0.6, 0.2 );
+		mango.scene.rotation.y = Math.PI / 1.5;
+          objects.push(mango.scene);
+        },
+      );
+      var loader = new THREE.GLTFLoader();
+      loader.load(
+      	'pizza.gltf',
+      	function ( pizza ) {
+      		scene.add( pizza.scene );
+      		pizza.scene.scale.set( 0.6, 0.6, 0.6 );
+		pizza.scene.position.set( -0.4, 0.55, 0.7 );
+		pizza.scene.rotation.y = Math.PI / 1.5;
+      		objects.push(pizza.scene);
+      	},
+      );
+      
+      camera.position.z = 3;
+      camera.position.x = 3;
+      var orbitcontrols = new THREE.OrbitControls(camera, renderer.domEelement);
+      var render = function(){
+      	renderer.render(scene, camera);
+      };
+      var animate = function(){
+      	requestAnimationFrame( animate );
+      //	update();
+      	render();
+      };
+	  	animate();
+    </script>
+  </body>
+</html>
